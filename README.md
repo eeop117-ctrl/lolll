@@ -55,3 +55,6 @@ VGA-only kernel — for actual installation use the Debian Live config in
 Старая сборка маленького ядра: `build-kernel.bat`.
 Установщик: `debian-live/config/includes.chroot/opt/minios/installer/` (index.html + backend.py).
 Тест интерфейса без записи на диск: откройте index.html двойным щелчком (демо-режим).
+
+### Запуск .exe
+В образ входят Wine (64- и 32-битные программы) и winetricks. Двойной щелчок по .exe запускает его через Wine; из терминала: `wine программа.exe`. Совместимость неполная: не пойдут программы с драйверами ядра, часть защит/античитов и некоторые игры.

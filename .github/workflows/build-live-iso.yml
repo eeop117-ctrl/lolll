@@ -4,23 +4,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
-      - name: Install live-build dependencies
+      - name: Free disk space
         run: |
-          sudo apt-get update
-          sudo apt-get install -y live-build debootstrap squashfs-tools xorriso debian-archive-keyring
-      - name: Make launchers executable
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h /
+      - name: Build ISO inside Debian 12 container
         run: |
-          chmod +x debian-live/configure.sh debian-live/config/includes.chroot/usr/local/bin/* debian-live/config/includes.chroot/opt/minios/installer/backend.py
-      - name: Remove stale auto file
-        run: rm -f debian-live/auto
-      - name: Build ISO
-        working-directory: debian-live
-        run: |
-          sudo lb clean --purge || true
-          sudo sh ./configure.sh
-          sudo lb build
+          rm -f debian-live/auto
+          chmod +x debian-live/configure.sh debian-live/config/includes.chroot/usr/local/bin/* \
+                   debian-live/config/includes.chroot/opt/minios/installer/backend.py debian-live/config/hooks/normal/*
+          docker run --rm --privileged -v "$PWD:/work" -w /work/debian-live debian:bookworm bash -ec '
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y live-build debootstrap squashfs-tools xorriso \
+              mtools dosfstools syslinux-utils isolinux syslinux-common ca-certificates
+            lb clean --purge || true
+            sh ./configure.sh
+            lb build
+          '
       - name: Upload ISO
         uses: actions/upload-artifact@v4
         with:

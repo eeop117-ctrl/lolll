@@ -1,6 +1,5 @@
 live-boot
 live-config
-live-config-systemd
 linux-image-amd64
 systemd-sysv
 xfce4
@@ -41,3 +40,7 @@ grub-pc-bin
 grub-efi-amd64-bin
 efibootmgr
 initramfs-tools
+wine
+winetricks
+cabextract
+zenity

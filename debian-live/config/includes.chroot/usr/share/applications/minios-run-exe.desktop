@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Запустить Windows-программу (Wine)
+Comment=Открыть .exe через Wine
+Exec=wine start /unix %f
+Icon=wine
+Terminal=false
+NoDisplay=false
+Categories=Utility;
+MimeType=application/x-ms-dos-executable;application/x-msdownload;application/vnd.microsoft.portable-executable;application/x-dosexec;

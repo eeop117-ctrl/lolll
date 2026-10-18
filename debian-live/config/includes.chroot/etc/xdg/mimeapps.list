@@ -1,0 +1,5 @@
+[Default Applications]
+application/x-ms-dos-executable=minios-run-exe.desktop
+application/x-msdownload=minios-run-exe.desktop
+application/vnd.microsoft.portable-executable=minios-run-exe.desktop
+application/x-dosexec=minios-run-exe.desktop
