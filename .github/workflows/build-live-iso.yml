@@ -13,6 +13,8 @@ jobs:
       - name: Make launchers executable
         run: |
           chmod +x debian-live/configure.sh debian-live/config/includes.chroot/usr/local/bin/* debian-live/config/includes.chroot/opt/minios/installer/backend.py
+      - name: Remove stale auto file
+        run: rm -f debian-live/auto
       - name: Build ISO
         working-directory: debian-live
         run: |

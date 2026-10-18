@@ -29,6 +29,7 @@ if errorlevel 1 (
   set /p URL=Paste the repo URL ^(https://github.com/USER/REPO.git^): 
   git remote add origin "!URL!"
 )
+if exist "debian-live\auto" del /q "debian-live\auto"
 git add -A
 git commit -m "MiniOS build" >nul 2>nul
 git branch -M main

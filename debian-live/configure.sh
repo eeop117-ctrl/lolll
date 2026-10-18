@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
+[ -f auto ] && rm -f auto
 lb config noauto \
   --mode debian \
   --distribution bookworm \
