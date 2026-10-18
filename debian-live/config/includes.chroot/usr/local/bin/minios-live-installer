@@ -1,0 +1,18 @@
+#!/bin/sh
+# Starts the MiniOS installer (backend as root + UI in Chromium). Live session only.
+grep -qw 'boot=live' /proc/cmdline || exit 0
+PORT=8765
+TOKEN=$(head -c 24 /dev/urandom | od -An -tx1 | tr -d ' \n')
+sudo -n pkill -f 'installer/backend.py' 2>/dev/null
+sudo -n env MINIOS_TOKEN="$TOKEN" python3 /opt/minios/installer/backend.py --port "$PORT" >/tmp/minios-backend.log 2>&1 &
+i=0
+until python3 -c "import socket;socket.create_connection(('127.0.0.1',$PORT),1)" 2>/dev/null; do
+  i=$((i+1)); [ "$i" -gt 20 ] && break; sleep 0.5
+done
+if [ "$i" -le 20 ] && command -v chromium >/dev/null 2>&1; then
+  exec chromium --no-first-run --user-data-dir=/tmp/minios-installer-profile --disable-session-crashed-bubble \
+    --start-maximized --app="http://127.0.0.1:$PORT/?t=$TOKEN"
+fi
+# fallback: classic Calamares installer
+command -v calamares >/dev/null 2>&1 && exec pkexec calamares
+command -v zenity >/dev/null 2>&1 && zenity --error --text='Установщик MiniOS не запустился. См. /tmp/minios-backend.log'

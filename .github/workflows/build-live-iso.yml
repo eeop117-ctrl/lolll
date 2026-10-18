@@ -1,0 +1,28 @@
+name: Build MiniOS Live ISO
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install live-build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap squashfs-tools xorriso
+      - name: Make launchers executable
+        run: |
+          chmod +x debian-live/auto debian-live/config/includes.chroot/usr/local/bin/* debian-live/config/includes.chroot/opt/minios/installer/backend.py
+      - name: Build ISO
+        working-directory: debian-live
+        run: |
+          sudo lb clean --purge || true
+          sudo sh ./auto
+          sudo lb build
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: minios-0.9-amd64-iso
+          path: debian-live/*.iso
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Установка MiniOS</title>
+<style>
+:root{--accent:#4f8cff;--accent2:#7a5cff;--pink:#ff8ad8;--font:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;--r:10px;--r-lg:14px;--r-xl:20px;--ease:cubic-bezier(.2,.9,.25,1);
+--glass:rgba(30,32,42,.72);--surface:#1d1f27;--card:rgba(255,255,255,.045);--card-h:rgba(255,255,255,.08);--fg:#f1f3f8;--fg2:#b4b9c8;--fg3:#80869a;--line:rgba(255,255,255,.09);--input:rgba(255,255,255,.06);--danger:#ff6464;--ok:#3ddc84;--warn:#ffb020;--shadow:0 30px 80px rgba(0,0,0,.55),0 4px 14px rgba(0,0,0,.3);--bg1:#0b1030;--bg2:#1a0f3d}
+[data-theme=light]{--glass:rgba(246,247,251,.8);--surface:#f6f7fb;--card:rgba(255,255,255,.7);--card-h:#fff;--fg:#16181d;--fg2:#535a6b;--fg3:#858b9b;--line:rgba(0,0,0,.09);--input:rgba(255,255,255,.85);--shadow:0 30px 80px rgba(40,50,90,.25);--bg1:#cfe0ff;--bg2:#f3d6ff}
+*{box-sizing:border-box;margin:0}html,body{height:100%;overflow:hidden}
+body{font:14px/1.45 var(--font);color:var(--fg);background:linear-gradient(135deg,var(--bg1),var(--bg2));display:grid;place-items:center;padding:16px}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.55;animation:float 18s ease-in-out infinite;pointer-events:none}
+.b1{width:520px;height:520px;background:var(--accent);left:-120px;top:-140px}
+.b2{width:460px;height:460px;background:var(--accent2);right:-100px;bottom:-120px;animation-delay:-6s}
+.b3{width:340px;height:340px;background:var(--pink);right:25%;top:-120px;opacity:.35;animation-delay:-11s}
+@keyframes float{50%{transform:translate(60px,40px) scale(1.12)}}
+.win{position:relative;width:min(960px,100%);height:min(620px,100%);display:grid;grid-template-columns:250px 1fr;border-radius:var(--r-xl);background:var(--glass);backdrop-filter:blur(40px) saturate(170%);-webkit-backdrop-filter:blur(40px) saturate(170%);box-shadow:var(--shadow),inset 0 0 0 1px var(--line);overflow:hidden;animation:pop .6s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.97)}}
+aside{padding:26px 20px;background:linear-gradient(180deg,rgba(79,140,255,.18),rgba(122,92,255,.14) 60%,rgba(255,138,216,.12));border-right:1px solid var(--line);display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;letter-spacing:-.3px;margin-bottom:28px}
+.logo{width:38px;height:38px;display:grid;grid-template:1fr 1fr/1fr 1fr;gap:4px}
+.logo i{border-radius:5px;background:linear-gradient(135deg,var(--accent),var(--accent2))}.logo i:nth-child(2){background:linear-gradient(135deg,var(--accent2),var(--pink))}.logo i:nth-child(3){background:linear-gradient(135deg,var(--pink),var(--accent))}
+ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px;flex:1}
+ol li{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:var(--r);color:var(--fg3);transition:.3s var(--ease)}
+ol li b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1.5px solid var(--line);flex:none;transition:.3s}
+ol li.on{color:var(--fg);background:var(--card-h);font-weight:600}
+ol li.on b{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(var(--rgb,79,140,255),.5)}
+ol li.done{color:var(--fg2)}ol li.done b{background:var(--ok);border-color:transparent;color:#fff}
+.ver{font-size:12px;color:var(--fg3)}
+main{display:flex;flex-direction:column;min-width:0}
+.pages{flex:1;position:relative;overflow:auto;padding:30px 36px 10px}
+.page{display:none;animation:in .45s var(--ease)}.page.on{display:block}
+@keyframes in{from{opacity:0;transform:translateX(28px)}}
+h1{font-size:28px;letter-spacing:-.6px;margin-bottom:6px;background:linear-gradient(90deg,var(--fg),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--fg2);margin-bottom:22px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+.card{padding:14px 16px;border-radius:var(--r-lg);background:var(--card);box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;transition:.25s var(--ease);display:flex;gap:12px;align-items:center;text-align:left;color:inherit;font:inherit;border:0;width:100%}
+.card:hover{background:var(--card-h);transform:translateY(-2px)}
+.card.sel{box-shadow:inset 0 0 0 2px var(--accent),0 8px 28px rgba(79,140,255,.25);background:var(--card-h)}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));flex:none}
+.card small{display:block;color:var(--fg3)}
+.hero{display:flex;gap:22px;align-items:center;margin:6px 0 22px}
+.hero .big{width:110px;height:110px;border-radius:28px;background:conic-gradient(from 200deg,var(--accent),var(--accent2),var(--pink),var(--accent));display:grid;place-items:center;font-size:52px;box-shadow:0 20px 50px rgba(122,92,255,.5);animation:spin 8s linear infinite}
+@keyframes spin{50%{transform:rotate(8deg) scale(1.05)}}
+label{display:block;font-size:12px;color:var(--fg2);margin:0 0 5px 2px}
+input[type=text],input[type=password]{width:100%;padding:11px 13px;border-radius:var(--r);border:1px solid var(--line);background:var(--input);color:var(--fg);font:inherit;outline:0;transition:.2s}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,140,255,.25)}
+.field{margin-bottom:14px}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;width:0;transition:.3s;background:var(--danger)}
+.warn{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r);background:rgba(255,176,32,.14);box-shadow:inset 0 0 0 1px rgba(255,176,32,.4);margin-top:16px}
+.sw{display:flex;gap:10px;margin:8px 0 18px}.sw button{width:38px;height:38px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:.2s}.sw button.sel{border-color:var(--fg);transform:scale(1.12)}
+table{width:100%;border-collapse:collapse}td{padding:10px 4px;border-bottom:1px solid var(--line)}td:first-child{color:var(--fg2);width:38%}
+.prog{margin:26px 0 10px;height:14px;border-radius:7px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;width:0;border-radius:7px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--pink),var(--accent));background-size:200% 100%;animation:sh 2s linear infinite;transition:width .3s}
+@keyframes sh{to{background-position:-200% 0}}
+.tip{margin-top:26px;padding:22px;border-radius:var(--r-xl);min-height:110px;background:linear-gradient(135deg,rgba(79,140,255,.28),rgba(122,92,255,.22),rgba(255,138,216,.22));animation:in .6s}
+.tip h3{font-size:17px;margin-bottom:4px}
+.done-ico{font-size:72px;animation:pop .7s var(--ease)}
+footer{display:flex;justify-content:space-between;padding:16px 36px 22px;border-top:1px solid var(--line)}
+.btn{padding:11px 26px;border-radius:var(--r);border:0;font:inherit;font-weight:600;cursor:pointer;transition:.2s var(--ease);color:var(--fg);background:var(--card-h);box-shadow:inset 0 0 0 1px var(--line)}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.4;pointer-events:none}
+.btn.pri{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 24px rgba(79,140,255,.4)}
+.btn.danger{background:linear-gradient(135deg,#ff6464,#ff4f9a);color:#fff}
+@media(max-width:760px){.win{grid-template-columns:1fr}aside{display:none}.g2,.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="win">
+ <aside>
+  <div class="brand"><div class="logo"><i></i><i></i><i></i><i></i></div>MiniOS</div>
+  <ol id="steps"></ol>
+  <div class="ver">Установщик · версия 0.9</div>
+ </aside>
+ <main>
+  <div class="pages">
+   <section class="page on">
+    <div class="hero"><div class="big">✨</div><div><h1>Добро пожаловать</h1><p class="sub" style="margin:0">Установим MiniOS на ваш компьютер за несколько шагов.</p></div></div>
+    <label>Язык системы</label>
+    <div class="grid g3" id="langs"></div>
+   </section>
+   <section class="page">
+    <h1>Куда установить?</h1><p class="sub">Выберите диск для MiniOS.</p>
+    <div class="grid" id="disks"></div>
+    <div class="warn"><span>⚠️</span><span><b>Все данные на выбранном диске будут удалены.</b><br>Сделайте резервную копию, прежде чем продолжить.</span></div>
+   </section>
+   <section class="page">
+    <h1>Кто вы?</h1><p class="sub">Создайте учётную запись для входа в систему.</p>
+    <div class="grid g3"><div class="field"><label>Ваше имя</label><input type="text" id="name" placeholder="Анна"></div>
+    <div class="field"><label>Логин (латиница)</label><input type="text" id="user" placeholder="anna" autocapitalize="off" spellcheck="false"></div>
+    <div class="field"><label>Имя компьютера</label><input type="text" id="host" value="minios-pc"></div></div>
+    <div class="grid g2"><div class="field"><label>Пароль</label><input type="password" id="p1"><div class="bar"><i id="pb"></i></div></div>
+    <div class="field"><label>Повторите пароль</label><input type="password" id="p2"></div></div>
+    <div id="perr" style="color:var(--danger);min-height:20px"></div>
+   </section>
+   <section class="page">
+    <h1>Сделайте своим</h1><p class="sub">Тема и цвет акцента — изменить можно и позже.</p>
+    <label>Тема</label>
+    <div class="grid g2" style="margin:6px 0 18px"><button class="card sel" data-th="dark"><span class="ico">🌙</span><b>Тёмная</b></button><button class="card" data-th="light"><span class="ico">☀️</span><b>Светлая</b></button></div>
+    <label>Цвет акцента</label><div class="sw" id="sw"></div>
+   </section>
+   <section class="page">
+    <h1>Всё готово?</h1><p class="sub">Проверьте параметры перед установкой.</p>
+    <table id="sum"></table>
+    <div class="warn" style="background:rgba(255,100,100,.13);box-shadow:inset 0 0 0 1px rgba(255,100,100,.4)"><span>🗑️</span><span>После нажатия «Установить» диск будет <b>полностью стёрт</b>.</span></div>
+    <label style="display:flex;gap:10px;align-items:center;margin-top:16px;cursor:pointer;font-size:14px;color:var(--fg)"><input type="checkbox" id="cf" style="width:18px;height:18px"><span id="cft"></span></label>
+   </section>
+   <section class="page">
+    <h1>Установка…</h1><p class="sub" id="stage">Подготовка</p>
+    <div class="prog"><i id="pg"></i></div><div id="pct" style="text-align:right;color:var(--fg2)">0%</div>
+    <div class="tip" id="tip"></div>
+    <pre id="log" style="margin-top:14px;font:11px/1.4 Consolas,monospace;color:var(--fg3);white-space:pre-wrap;max-height:64px;overflow:hidden"></pre>
+   </section>
+   <section class="page" style="text-align:center;padding-top:50px">
+    <div class="done-ico">🎉</div><h1 style="display:inline-block;margin-top:10px">MiniOS установлена!</h1>
+    <p class="sub">Извлеките установочный носитель и перезагрузите компьютер.</p>
+   </section>
+  </div>
+  <footer><button class="btn" id="back">Назад</button><button class="btn pri" id="next">Далее</button></footer>
+ </main>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const S={lang:'Русский',disk:null,accent:'#4f8cff'};
+const names=['Приветствие','Диск','Учётная запись','Оформление','Проверка','Установка','Готово'];
+$('#steps').innerHTML=names.map((n,i)=>`<li><b>${i+1}</b>${n}</li>`).join('');
+const langs=[['🇷🇺','Русский'],['🇬🇧','English'],['🇩🇪','Deutsch'],['🇫🇷','Français'],['🇪🇸','Español'],['🇺🇦','Українська']];
+$('#langs').innerHTML=langs.map(([f,n],i)=>`<button class="card ${i?'':'sel'}" data-v="${n}"><span class="ico">${f}</span><b>${n}</b></button>`).join('');
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T=new URLSearchParams(location.search).get('t');let DEMO=!(location.protocol.startsWith('http')&&T);
+async function api(p,o={}){const r=await fetch(p,{...o,headers:{'X-Token':T,'Content-Type':'application/json'}});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
+let disks=[{n:'Виртуальный диск VBOX HARDDISK',s:'/dev/sda · 32 ГБ',i:'💽',path:'/dev/sda'},{n:'Samsung SSD 970',s:'/dev/nvme0n1 · 512 ГБ',i:'⚡',path:'/dev/nvme0n1'}];
+function renderDisks(){$('#disks').innerHTML=disks.map((d,i)=>`<button class="card" data-i="${i}" ${d.blocked?'disabled style="opacity:.45;cursor:not-allowed"':''}><span class="ico">${d.i||'💽'}</span><span><b>${esc(d.n)}</b><small>${esc(d.s)}${d.note?' · '+d.note:''}</small></span></button>`).join('')||'<p class="sub">Диски не найдены.</p>'}
+async function loadDisks(){if(!DEMO){try{const r=await api('/api/disks');disks=r.disks.map(d=>({n:d.model,s:`${d.path} · ${Math.round(d.size/1e9)} ГБ`,path:d.path,blocked:d.live||d.small,note:d.live?'носитель установки':d.small?'нужно от 8 ГБ':''}))}catch(e){DEMO=true}}
+ if(DEMO)$('.ver').textContent='Демо-режим · запись на диск отключена';renderDisks()}
+const cols=['#4f8cff','#7a5cff','#ff6fb5','#ff9a3d','#3ddc84','#19c7d6'];
+$('#sw').innerHTML=cols.map((c,i)=>`<button style="background:${c}" data-c="${c}" class="${i?'':'sel'}"></button>`).join('');
+function pick(box,el){$$(box+' .sel').forEach(x=>x.classList.remove('sel'));el.classList.add('sel')}
+document.addEventListener('click',e=>{
+ const c=e.target.closest('button');if(!c)return;
+ if(c.parentNode.id==='langs'){pick('#langs',c);S.lang=c.dataset.v}
+ if(c.parentNode.id==='disks'){pick('#disks',c);S.disk=+c.dataset.i;upd()}
+ if(c.dataset.th){pick('.page:nth-child(4) .g2',c);document.documentElement.dataset.theme=c.dataset.th}
+ if(c.dataset.c){pick('#sw',c);S.accent=c.dataset.c;const r=document.documentElement.style;r.setProperty('--accent',S.accent)}
+});
+let step=0;
+function show(n){step=n;$$('.page').forEach((p,i)=>p.classList.toggle('on',i===n));
+ $$('#steps li').forEach((li,i)=>{li.className=i===n?'on':i<n?'done':'';li.firstChild.textContent=i<n?'✓':i+1});
+ $('#back').style.visibility=n===0||n>=5?'hidden':'visible';
+ const nx=$('#next');nx.className='btn pri';nx.textContent=n===4?'Установить':n===6?'Перезагрузить':'Далее';
+ if(n===4){nx.className='btn danger';sum();$('#cf').checked=false;$('#cft').textContent=`Я понимаю: диск ${disks[S.disk].path} будет полностью стёрт`}$('#stage').style.color='';if(n===5){nx.style.display='none';run()}else nx.style.display='';upd()}
+function strength(p){let s=0;if(p.length>=8)s++;if(/[A-ZА-Я]/.test(p)&&/[a-zа-я]/.test(p))s++;if(/\d/.test(p))s++;if(/[^\w]/.test(p))s++;return s}
+function upd(){let ok=true;
+ if(step===1)ok=S.disk!==null;
+ if(step===2){const a=$('#p1').value,b=$('#p2').value,s=strength(a);
+  $('#pb').style.width=a?s*25+'%':0;$('#pb').style.background=['#ff6464','#ff6464','#ffb020','#3ddc84','#3ddc84'][s];
+  $('#perr').textContent=b&&a!==b?'Пароли не совпадают':'';
+  ok=$('#name').value.trim()&&/^[a-z][a-z0-9_-]{0,30}$/.test($('#user').value)&&/^[A-Za-z0-9][A-Za-z0-9-]{0,30}$/.test($('#host').value)&&a.length>=4&&a===b}
+ if(step===4)ok=$('#cf').checked
+ $('#next').disabled=!ok}
+$$('input').forEach(i=>{i.oninput=upd;i.onchange=upd});
+function sum(){const d=disks[S.disk];$('#sum').innerHTML=[['Язык',S.lang],['Диск',`${d.n} (${d.s})`],['Пользователь',`${$('#name').value} (${$('#user').value})`],['Компьютер',$('#host').value],['Тема',document.documentElement.dataset.theme==='dark'?'Тёмная':'Светлая']].map(([a,b])=>`<tr><td>${a}</td><td><b>${b.replace(/</g,'&lt;')}</b></td></tr>`).join('')}
+const stages=[[0,'Разметка диска'],[20,'Копирование системных файлов'],[60,'Установка загрузчика'],[80,'Настройка учётной записи'],[92,'Завершение']];
+const tips=[['🪟','Окна','Прикрепляйте окна к краям экрана перетаскиванием.'],['🔍','Поиск','Нажмите Win, чтобы найти приложение или посчитать прямо в поиске.'],['🎨','Цвета','Акцент и тему можно менять в «Параметрах».'],['🖥️','Рабочие столы','Используйте виртуальные рабочие столы для порядка.']];
+let tt;
+function startTips(){let t=0;const f=()=>{const[i,h,b]=tips[t++%tips.length];$('#tip').innerHTML=`<div style="font-size:30px">${i}</div><h3>${h}</h3><span>${b}</span>`;$('#tip').style.animation='none';void $('#tip').offsetWidth;$('#tip').style.animation=''};f();tt=setInterval(f,3500)}
+function paint(p,st){$('#pg').style.width=p+'%';$('#pct').textContent=Math.floor(p)+'%';if(st)$('#stage').textContent=st}
+function fail(m){clearInterval(tt);$('#stage').style.color='var(--danger)';$('#stage').textContent='Ошибка установки: '+m;$('#back').style.visibility='visible'}
+function demo(){let p=0;const k=setInterval(()=>{p+=Math.random()*2.2+.4;if(p>=100){p=100;clearInterval(k);clearInterval(tt);setTimeout(()=>show(6),600)}paint(p,[...stages].reverse().find(x=>p>=x[0])[1])},120)}
+async function run(){startTips();paint(0,'Подготовка');if(DEMO)return demo();
+ try{await api('/api/install',{method:'POST',body:JSON.stringify({disk:disks[S.disk].path,confirm:disks[S.disk].path,fullname:$('#name').value.trim(),user:$('#user').value,host:$('#host').value.trim(),password:$('#p1').value,lang:S.lang})})}catch(e){return fail(e.message)}
+ const poll=setInterval(async()=>{try{const r=await api('/api/status');paint(r.percent,r.stage);$('#log').textContent=r.log.slice(-4).join('\n');
+  if(r.state==='error'){clearInterval(poll);fail(r.error)}if(r.state==='done'){clearInterval(poll);clearInterval(tt);setTimeout(()=>show(6),600)}}catch(e){}},800)}
+$('#next').onclick=()=>{if(step===6){if(!DEMO)api('/api/reboot',{method:'POST'}).catch(()=>{});return}show(step+1)};
+$('#back').onclick=()=>show(step-1);
+show(0);loadDisks();
+</script>
+</body>
+</html>

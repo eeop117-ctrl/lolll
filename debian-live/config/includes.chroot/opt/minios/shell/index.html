@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Windows 12 — веб-версия</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2363b3ff'/%3E%3Cstop offset='1' stop-color='%237a5cff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='3' y='3' width='12' height='12' rx='3' fill='url(%23a)'/%3E%3Crect x='17' y='3' width='12' height='12' rx='3' fill='url(%23a)'/%3E%3Crect x='3' y='17' width='12' height='12' rx='3' fill='url(%23a)'/%3E%3Crect x='17' y='17' width='12' height='12' rx='3' fill='url(%23a)'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/shell.css">
+  <link rel="stylesheet" href="css/windows.css">
+  <link rel="stylesheet" href="css/apps.css">
+</head>
+<body>
+  <div id="os">
+    <div id="wallpaper"></div>
+    <div id="desktop" tabindex="0"></div>
+    <div id="windows"></div>
+    <div id="snap-preview"></div>
+    <div id="widgets-panel" class="flyout glass"></div>
+    <div id="start-menu" class="flyout glass"></div>
+    <div id="quick-settings" class="flyout glass"></div>
+    <div id="notif-center" class="flyout"></div>
+    <div id="taskview"></div>
+    <div id="taskbar" class="glass"></div>
+    <div id="toasts"></div>
+  </div>
+  <div id="lockscreen"></div>
+  <div id="power-screen"></div>
+  <div id="overlay-layer"></div>
+  <div id="night-light"></div>
+  <div id="brightness"></div>
+
+  <!-- ядро -->
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/store.js"></script>
+  <script src="js/core/icons.js"></script>
+  <script src="js/core/sound.js"></script>
+  <script src="js/core/fs.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/core/wm.js"></script>
+  <script src="js/core/apps.js"></script>
+  <script src="js/core/fileops.js"></script>
+  <script src="js/core/services.js"></script>
+  <!-- приложения -->
+  <script src="js/apps/explorer.js"></script>
+  <script src="js/apps/settings.js"></script>
+  <script src="js/apps/browser.js"></script>
+  <script src="js/apps/notepad.js"></script>
+  <script src="js/apps/calculator.js"></script>
+  <script src="js/apps/paint.js"></script>
+  <script src="js/apps/terminal.js"></script>
+  <script src="js/apps/taskmgr.js"></script>
+  <script src="js/apps/photos.js"></script>
+  <script src="js/apps/music.js"></script>
+  <script src="js/apps/clock.js"></script>
+  <script src="js/apps/calendar.js"></script>
+  <script src="js/apps/weather.js"></script>
+  <script src="js/apps/minesweeper.js"></script>
+  <script src="js/apps/game2048.js"></script>
+  <script src="js/apps/assistant.js"></script>
+  <script src="js/apps/camera.js"></script>
+  <!-- оболочка -->
+  <script src="js/shell/desktop.js"></script>
+  <script src="js/shell/taskbar.js"></script>
+  <script src="js/shell/startmenu.js"></script>
+  <script src="js/shell/panels.js"></script>
+  <script src="js/shell/taskview.js"></script>
+  <script src="js/shell/power.js"></script>
+  <script src="js/main.js"></script>
+
+<style id="minios-setup-style">
+#minios-setup{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 18% 15%,rgba(55,116,255,.38),transparent 42%),radial-gradient(ellipse at 85% 85%,rgba(135,76,255,.32),transparent 40%),linear-gradient(135deg,#070b18,#11172c 55%,#090d1b);color:#f6f7ff;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;}
+#minios-setup *{box-sizing:border-box}#minios-setup .setup-window{width:min(980px,100%);min-height:570px;display:grid;grid-template-columns:290px 1fr;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:25px;background:rgba(17,23,43,.92);box-shadow:0 32px 100px #0009;backdrop-filter:blur(24px)}
+#minios-setup .setup-side{padding:30px 24px;background:linear-gradient(160deg,rgba(61,100,221,.22),rgba(123,70,220,.1));border-right:1px solid #ffffff14;display:flex;flex-direction:column}
+#minios-setup .brand{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:750;letter-spacing:-.4px}.setup-logo{display:grid;grid-template-columns:repeat(2,14px);gap:3px;transform:rotate(-8deg)}.setup-logo i{display:block;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#67d9ff,#7c75ff);box-shadow:0 0 18px #647aff55}
+#minios-setup .side-title{font-size:26px;line-height:1.12;font-weight:760;letter-spacing:-.8px;margin-top:54px}.setup-steps{margin-top:30px;display:grid;gap:10px}.setup-step{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;color:#aeb8d7}.setup-step .n{width:27px;height:27px;border:1px solid #ffffff2a;border-radius:50%;display:grid;place-items:center;font-size:12px}.setup-step.active{background:#ffffff12;color:#fff}.setup-step.active .n{background:#6d7dff;border-color:transparent;color:white}.setup-step.done .n{background:#2bbf93;border-color:transparent;color:#071a18}
+#minios-setup .side-foot{margin-top:auto;color:#9aa6c8;font-size:12px}.setup-main{padding:38px 42px 30px;display:flex;flex-direction:column;min-width:0}.setup-kicker{font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:#93a5ff}.setup-heading{font-size:31px;line-height:1.2;letter-spacing:-1px;margin:10px 0 9px;font-weight:760}.setup-desc{color:#b5bfd8;max-width:570px;margin:0 0 24px}.setup-content{flex:1}.setup-choice{display:flex;align-items:flex-start;gap:13px;padding:16px;border:1px solid #ffffff20;border-radius:15px;background:#ffffff06;margin:10px 0;cursor:pointer}.setup-choice:has(input:checked){border-color:#8590ff;background:#7886ff14}.setup-choice input{accent-color:#7886ff;margin-top:4px;width:17px;height:17px}.setup-choice b{display:block;font-size:14px;margin-bottom:3px}.setup-choice small{display:block;color:#aeb9d5;font-size:12px;line-height:1.45}.setup-note{padding:13px 15px;border-radius:12px;background:#5e7bff12;border:1px solid #748bff2b;color:#bdc9ee;font-size:12px;margin-top:16px}.setup-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid #ffffff15}.setup-footer .hint{font-size:11px;color:#8f9aba}.setup-btn{border:0;border-radius:11px;padding:12px 19px;font:650 13px system-ui;cursor:pointer;transition:transform .15s,filter .15s}.setup-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.setup-primary{background:linear-gradient(135deg,#6d8cff,#8d6bff);color:white;box-shadow:0 8px 24px #6c7cff35}.setup-secondary{background:#ffffff0d;border:1px solid #ffffff20;color:#e5eaff}.setup-progress{height:8px;background:#ffffff14;border-radius:20px;overflow:hidden;margin:22px 0 12px}.setup-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#65d6ff,#8971ff);border-radius:20px;transition:width .25s}.setup-status{color:#b9c4e1;font-size:12px}.setup-complete{font-size:46px;line-height:1;margin-bottom:20px;color:#6ee7bb}.setup-hide{display:none!important}
+@media(max-width:700px){#minios-setup{padding:10px}#minios-setup .setup-window{grid-template-columns:1fr;min-height:0;max-height:96vh;overflow:auto}#minios-setup .setup-side{padding:18px 20px;border-right:0;border-bottom:1px solid #ffffff14}.setup-steps{display:flex;flex-wrap:wrap;margin-top:14px}.setup-step{padding:6px;font-size:11px}.setup-step .n{width:22px;height:22px}.side-title,.side-foot{display:none}#minios-setup .setup-main{padding:24px 20px}.setup-heading{font-size:25px}}
+</style>
+<div id="minios-setup" role="dialog" aria-modal="true" aria-label="Установка MiniOS">
+ <div class="setup-window">
+  <aside class="setup-side"><div class="brand"><span class="setup-logo"><i></i><i></i><i></i><i></i></span> MiniOS</div><div class="side-title">Всё готово<br>к новому<br>рабочему месту.</div>
+   <div class="setup-steps"><div class="setup-step active" data-stepmark="0"><span class="n">1</span> Добро пожаловать</div><div class="setup-step" data-stepmark="1"><span class="n">2</span> Настройка</div><div class="setup-step" data-stepmark="2"><span class="n">3</span> Подготовка</div><div class="setup-step" data-stepmark="3"><span class="n">4</span> Готово</div></div>
+   <div class="side-foot">MiniOS Desktop Preview · 0.8<br>Интерактивная оболочка</div>
+  </aside>
+  <main class="setup-main"><div class="setup-kicker" id="setup-kicker">Первый запуск · Шаг 1 из 4</div><h1 class="setup-heading" id="setup-title">Добро пожаловать в MiniOS</h1><p class="setup-desc" id="setup-desc">Сначала подготовим вашу рабочую среду. Мастер обязателен при первом запуске оболочки.</p>
+   <div class="setup-content" id="setup-content"><div class="setup-choice"><span style="font-size:25px">✦</span><div><b>Новая рабочая среда</b><small>Современный рабочий стол, приложения и быстрые настройки в едином интерфейсе.</small></div></div><div class="setup-note">Это установка веб-оболочки в текущем браузере. Она не размечает диск и не устанавливает загрузочную ISO-систему на компьютер.</div></div>
+   <div class="setup-footer"><span class="hint" id="setup-hint">Ваши настройки останутся в этом браузере.</span><div style="display:flex;gap:9px"><button class="setup-btn setup-secondary setup-hide" id="setup-back">Назад</button><button class="setup-btn setup-primary" id="setup-next">Начать настройку&nbsp; →</button></div></div>
+  </main>
+ </div>
+</div>
+<script>
+(function(){
+ const KEY='minios08_shell_setup_complete';
+ const overlay=document.getElementById('minios-setup');
+ if(localStorage.getItem(KEY)==='1'){overlay.remove();return;}
+ let step=0, selected='balanced';
+ const title=document.getElementById('setup-title'),desc=document.getElementById('setup-desc'),content=document.getElementById('setup-content'),kicker=document.getElementById('setup-kicker'),hint=document.getElementById('setup-hint'),next=document.getElementById('setup-next'),back=document.getElementById('setup-back');
+ const pages=[
+  ['Первый запуск · Шаг 1 из 4','Добро пожаловать в MiniOS','Сначала подготовим вашу рабочую среду. Мастер обязателен при первом запуске оболочки.'],
+  ['Персонализация · Шаг 2 из 4','Выберите режим','Можно изменить внешний вид позже в приложении «Параметры».'],
+  ['Подготовка · Шаг 3 из 4','Подготавливаем оболочку','Сохраним только параметры первого запуска в локальном хранилище браузера.'],
+  ['Завершение · Шаг 4 из 4','MiniOS готова к запуску','Настройка завершена. Теперь можно открыть рабочий стол и приложения.']
+ ];
+ function render(){const p=pages[step];kicker.textContent=p[0];title.textContent=p[1];desc.textContent=p[2];document.querySelectorAll('[data-stepmark]').forEach((el,i)=>{el.classList.toggle('active',i===step);el.classList.toggle('done',i<step);el.querySelector('.n').textContent=i<step?'✓':String(i+1)});back.classList.toggle('setup-hide',step===0);next.textContent=step===0?'Настроить →':step===1?'Продолжить →':step===2?'Подготовить →':'Открыть рабочий стол  →';
+  if(step===0){content.innerHTML='<div class="setup-choice"><span style="font-size:25px">✦</span><div><b>Новая рабочая среда</b><small>Современный рабочий стол, приложения и быстрые настройки в едином интерфейсе.</small></div></div><div class="setup-note">Важно: это мастер настройки веб-оболочки. Он не размечает диск и не устанавливает загрузочную ISO-систему на компьютер.</div>';hint.textContent='Ваши настройки останутся в этом браузере.'}
+  if(step===1){content.innerHTML='<label class="setup-choice"><input type="radio" name="miniosmode" value="balanced" '+(selected==='balanced'?'checked':'')+'><span>🌌</span><div><b>Modern · Рекомендуется</b><small>Тёмная тема, полупрозрачные панели и спокойные акценты.</small></div></label><label class="setup-choice"><input type="radio" name="miniosmode" value="light" '+(selected==='light'?'checked':'')+'><span>☀️</span><div><b>Светлая тема</b><small>Светлое оформление там, где оболочка поддерживает системную тему.</small></div></label><div class="setup-note">Выбор темы сохранится в браузере. Его можно поменять позже в настройках оболочки.</div>';content.querySelectorAll('input').forEach(el=>el.addEventListener('change',()=>selected=el.value));hint.textContent='Можно изменить позднее.'}
+  if(step===2){content.innerHTML='<div style="display:flex;align-items:center;gap:14px;margin:16px 0"><span style="font-size:36px">◈</span><div><b>Создание профиля оболочки</b><div class="setup-status" id="setup-status">Проверяем локальное хранилище…</div></div></div><div class="setup-progress"><span id="setup-bar"></span></div><div class="setup-note">На этом этапе не выполняются операции с физическим диском, разделами или загрузчиком.</div>';hint.textContent='Не закрывайте окно во время подготовки.';let n=0;const bar=document.getElementById('setup-bar'),status=document.getElementById('setup-status');const messages=['Проверяем настройки браузера…','Сохраняем параметры интерфейса…','Готовим первый запуск…','Почти готово…'];const t=setInterval(()=>{n+=25;if(!document.getElementById('setup-bar')){clearInterval(t);return}bar.style.width=n+'%';status.textContent=messages[Math.min(3,n/25-1)];if(n>=100)clearInterval(t)},240)}
+  if(step===3){content.innerHTML='<div class="setup-complete">✓</div><div style="font-size:17px;font-weight:700;margin-bottom:8px">Рабочая среда подготовлена</div><div style="color:#b5bfd8;max-width:500px">Первый запуск завершён. Рабочий стол и приложения доступны. Мастер больше не появится, пока не очистите данные сайта в браузере.</div><div class="setup-note">Это не установка MiniOS на HDD/SSD. Настоящий установщик ISO требует драйвера диска, разметки и файловой системы — они пока не входят в ядро.</div>';hint.textContent='Приятной работы!'}
+ }
+ next.addEventListener('click',()=>{if(step<3){if(step===1){try{localStorage.setItem('minios08_theme',selected)}catch(e){}}step++;render();if(step===2){next.disabled=true;next.style.opacity='.55';setTimeout(()=>{next.disabled=false;next.style.opacity='1'},1150)}}else{try{localStorage.setItem(KEY,'1');localStorage.setItem('minios08_first_run','done')}catch(e){}overlay.remove();}});
+ back.addEventListener('click',()=>{if(step>0){step--;render()}});render();
+})();
+</script>
+
+</body>
+</html>

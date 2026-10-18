@@ -1,0 +1,26 @@
+name: Build MiniOS C ISO (Windows)
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Windows-hosted build tools (MSYS2, no Linux runner)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MSYS
+          update: true
+          install: clang lld make xorriso git
+      - name: Build kernel and ISO
+        shell: msys2 {0}
+        run: make iso
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: minios-c-iso
+          path: build/minios-c.iso
+          retention-days: 1

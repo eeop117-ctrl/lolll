@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=MiniOS Desktop
+Comment=Launch the MiniOS graphical shell
+Exec=/usr/local/bin/minios-shell
+Terminal=false
+X-GNOME-Autostart-enabled=true

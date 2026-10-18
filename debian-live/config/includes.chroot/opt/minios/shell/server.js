@@ -1,0 +1,14 @@
+// Простой локальный сервер: node server.js → http://localhost:8080
+const http = require('http'), fs = require('fs'), path = require('path');
+const PORT = process.env.PORT || 8080;
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json' };
+http.createServer((req, res) => {
+  let p = decodeURIComponent(req.url.split('?')[0]);
+  if (p === '/') p = '/index.html';
+  const file = path.join(__dirname, path.normalize(p).replace(/^(\.\.[\/\\])+/, ''));
+  fs.readFile(file, (err, data) => {
+    if (err) { res.writeHead(404); return res.end('Not found'); }
+    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+    res.end(data);
+  });
+}).listen(PORT, () => console.log(`Windows 12 запущена: http://localhost:${PORT}`));

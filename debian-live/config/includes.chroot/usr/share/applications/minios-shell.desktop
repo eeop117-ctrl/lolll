@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=MiniOS Desktop
+Comment=Open the MiniOS desktop shell
+Exec=/usr/local/bin/minios-shell
+Icon=computer
+Terminal=false
+Categories=System;

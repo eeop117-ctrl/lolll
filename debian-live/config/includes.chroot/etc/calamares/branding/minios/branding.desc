@@ -1,0 +1,20 @@
+---
+componentName: MiniOS
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+strings:
+    productName: MiniOS
+    shortProductName: MiniOS
+    version: "0.9"
+    shortVersion: "0.9"
+    versionedName: "MiniOS 0.9"
+    bootloaderEntryName: MiniOS
+    productUrl: "https://example.invalid/minios"
+    supportUrl: "https://example.invalid/minios/support"
+    knownIssuesUrl: "https://example.invalid/minios/issues"
+    releaseNotesUrl: "https://example.invalid/minios/releases"
+images:
+    productLogo: "logo.png"
+style:
+    sidebarBackground: "#101827"
+    sidebarText: "#ffffff"

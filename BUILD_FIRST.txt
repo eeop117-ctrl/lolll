@@ -1,0 +1,8 @@
+MINIOS C — WINDOWS BUILD
+
+No Linux, no WSL, no Ubuntu, no Docker.
+
+Run build.bat from Windows. First run may install MSYS2 via winget. If automatic installation fails, install MSYS2 from https://www.msys2.org/ into C:\msys64 and run build.bat again.
+The script installs clang, lld, make, xorriso and git using MSYS2's Windows binaries. It then obtains Limine's Windows-compatible binary release and builds build\minios-c.iso.
+
+Output is a BIOS bootable experimental ISO. The HTML UI is preserved separately and does not run inside the bare-metal kernel yet.

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Установить MiniOS
+Comment=Установить MiniOS на диск
+Exec=/usr/local/bin/minios-live-installer
+Icon=system-software-install
+Terminal=false
+Categories=System;

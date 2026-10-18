@@ -1,0 +1,10 @@
+MiniOS 0.6 experimental test
+
+1. VirtualBox VM settings -> System -> Motherboard: disable Enable EFI (Legacy BIOS).
+2. System -> Processor: 1 CPU for first test.
+3. Display -> Graphics Controller: VBoxSVGA; Video Memory: 128 MB.
+4. Boot from the newly rebuilt ISO, not an older ISO.
+5. If MiniOS shows the VGA diagnostic, copy the BOOT MAGIC and INFO ADDRESS values.
+6. If VirtualBox itself reports a critical error, the kernel message cannot diagnose it. Send the complete VBox.log, especially the first VERR_*, Guru Meditation, or Fatal error entry before the final shutdown lines.
+
+Build using build.bat from Windows. This package does not include a newly generated ISO because ISO creation requires the Windows/MSYS2 build environment and Limine tools.

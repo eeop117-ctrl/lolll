@@ -1,0 +1,6 @@
+MiniOS 0.9 status:
+- Debian Live + XFCE is configured as the bootable OS foundation.
+- Existing MiniOS shell is installed in /opt/minios/shell and launches as a local Chromium app.
+- Calamares is configured to auto-launch in the live session; its version-matched module configuration comes from calamares-settings-debian.
+- Linux build script and GitHub Actions ISO build workflow are included.
+- ISO creation and disk installation have not been verified in this environment; treat as experimental.

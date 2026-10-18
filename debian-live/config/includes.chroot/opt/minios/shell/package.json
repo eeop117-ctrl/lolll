@@ -1,0 +1,6 @@
+{
+  "name": "windows-12-web",
+  "version": "1.0.0",
+  "description": "Интерактивная веб-версия Windows 12",
+  "scripts": { "start": "node server.js" }
+}

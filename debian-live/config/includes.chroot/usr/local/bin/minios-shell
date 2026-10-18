@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+URL='file:///opt/minios/shell/index.html'
+if command -v chromium >/dev/null 2>&1; then
+  exec chromium --no-first-run --disable-session-crashed-bubble --app="$URL"
+fi
+exec xdg-open "$URL"

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=MiniOS Installer
+Comment=Start the installer when booted from the live ISO
+Exec=/usr/local/bin/minios-live-installer
+Terminal=false
+X-GNOME-Autostart-enabled=true
